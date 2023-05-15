@@ -3,11 +3,15 @@ package pro.sky.java.course2.homework5;
 import java.util.Objects;
 
 public class Employee {
-private final String firstName;
-private final String lastName;
-public Employee (String firstName, String lastName) {
+    private final String firstName;
+    private final String lastName;
+    private final int department;
+    private final double salary;
+public Employee (String firstName, String lastName, int department, double salary) {
     this.firstName = firstName;
     this.lastName = lastName;
+    this.department = department;
+    this.salary = salary;
 }
 
     public String getFirstName() {
@@ -16,6 +20,12 @@ public Employee (String firstName, String lastName) {
 
     public String getLastName() {
         return lastName;
+    }
+    public int getDepartment () {
+        return department;
+    }
+    public double getSalary () {
+        return salary;
     }
 
     @Override
@@ -36,6 +46,8 @@ public Employee (String firstName, String lastName) {
         return "Employee{" +
                 "firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
+                ", department=" + department +
+                ", salary=" + salary +
                 '}';
     }
 }
