@@ -13,16 +13,19 @@ public class EmployeeController {
         this.employeeServiceImpl = employeeServiceImpl;
     }
     @GetMapping("/add")
-    public Employee addEmployee (@RequestParam("firstName") String firstName, @RequestParam("lastName") String lastName) {
-        return employeeServiceImpl.addEmployee(firstName, lastName);
+    public Employee addEmployee (@RequestParam("firstName") String firstName, @RequestParam("lastName") String lastName,
+                                 @RequestParam("department") int department, @RequestParam("salary") double salary) {
+        return employeeServiceImpl.addEmployee(firstName, lastName, department, salary);
     }
     @GetMapping("/remove")
-    public Employee removeEmployee (@RequestParam("firstName") String firstName, @RequestParam("lastName") String lastName) {
-        return employeeServiceImpl.removeEmployee(firstName, lastName);
+    public Employee removeEmployee (@RequestParam("firstName") String firstName, @RequestParam("lastName") String lastName,
+                                    @RequestParam("department") int department, @RequestParam("salary") double salary) {
+        return employeeServiceImpl.removeEmployee(firstName, lastName, department, salary);
     }
     @GetMapping("/find")
-    public Employee findEmployee (@RequestParam("firstName") String firstName, @RequestParam("lastName") String lastName) {
-        return employeeServiceImpl.findEmployee(firstName, lastName);
+    public Employee findEmployee (@RequestParam("firstName") String firstName, @RequestParam("lastName") String lastName,
+                                  @RequestParam("department") int department, @RequestParam("salary") double salary) {
+        return employeeServiceImpl.findEmployee(firstName, lastName, department, salary);
     }
     @GetMapping("/print")
     public String printAllEmployees () {
