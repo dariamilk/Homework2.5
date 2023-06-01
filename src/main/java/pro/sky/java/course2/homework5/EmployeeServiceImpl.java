@@ -1,5 +1,6 @@
 package pro.sky.java.course2.homework5;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.Collections;
@@ -11,7 +12,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     private Map <String, Employee> employees = new HashMap<> ();
 @Override
     public Employee addEmployee(String firstName, String lastName, int department, double salary) {
-        Employee employee = new Employee(firstName, lastName, department, salary);
+        Employee employee = new Employee(nameCheck(firstName), nameCheck(lastName), department, salary);
         if (getEmployees().containsKey(employee.getLastName())) {
             throw new EmployeeAlreadyAddedException();
         } else {
@@ -21,7 +22,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
     @Override
     public Employee removeEmployee(String firstName, String lastName, int department, double salary) {
-        Employee employee = new Employee(firstName, lastName, department, salary);
+        Employee employee = new Employee(nameCheck(firstName), nameCheck(lastName), department, salary);
         if (getEmployees().containsKey(employee.getLastName())) {
             getEmployees().remove(employee.getLastName());
             return employee;
@@ -31,7 +32,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
     @Override
     public Employee findEmployee(String firstName, String lastName, int department, double salary) {
-        Employee employee = new Employee(firstName, lastName, department, salary);
+        Employee employee = new Employee(nameCheck(firstName), nameCheck(lastName), department, salary);
         if (getEmployees().containsKey(employee.getLastName())) {
             return getEmployees().get(employee.getLastName());
         } else {
@@ -49,5 +50,14 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     public void setEmployees(Map<String, Employee> employees) {
         this.employees = employees;
+    }
+
+    private static String nameCheck (String name) {
+        name = name.toLowerCase();
+        if (StringUtils.isAlpha(name)) {
+            return StringUtils.capitalize(name);
+        } else {
+            throw new IllegalInputException();
+        }
     }
 }
