@@ -3,6 +3,8 @@ package pro.sky.java.course2.homework5;
 import org.springframework.stereotype.Service;
 
 import java.util.Comparator;
+import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
@@ -26,19 +28,38 @@ public class DepartmentServiceImpl implements DepartmentService {
                 .orElseThrow(() -> new EmployeeNotFoundException());
     }
     @Override
-    public String printAllEmployeesPerDep (int department) {
+    public String printAllEmployeesPerDep (int id) {
         return employeeService.getEmployees().values().stream()
-                .filter(e -> e.getDepartment() == department)
+                .filter(e -> e.getDepartment() == id)
                 .collect(Collectors.toUnmodifiableList()).toString();
     }
     @Override
-    public String printAll () {
+    public Map<Integer, List<Employee>> printAll () {
         return employeeService.getEmployees()
-                .values()
-                .stream()
-                .sorted(Comparator.comparingInt(e -> e.getDepartment()))
-                .collect(Collectors.toList()).
-                toString();
+                .values().stream()
+                .collect(Collectors.groupingBy(e -> e.getDepartment()));
+    }
+    @Override
+    public double findMaxSalaryPerDep(int id) {
+        return employeeService.getEmployees().values().stream()
+                .filter(e -> e.getDepartment() == id)
+                .mapToDouble(e -> e.getSalary())
+                .max().orElseThrow(EmployeeNotFoundException::new);
+    }
+
+    @Override
+    public double findMinSalaryPerDep(int id) {
+        return employeeService.getEmployees().values().stream()
+                .filter(e -> e.getDepartment() == id)
+                .mapToDouble(e -> e.getSalary())
+                .min().orElseThrow(EmployeeNotFoundException::new);
+    }
+    @Override
+    public double findSalarySumPerDep(int id) {
+        return employeeService.getEmployees().values().stream()
+                .filter(e -> e.getDepartment() == id)
+                .mapToDouble(e -> e.getSalary())
+                .sum();
     }
 
 }

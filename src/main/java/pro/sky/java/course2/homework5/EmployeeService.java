@@ -1,5 +1,7 @@
 package pro.sky.java.course2.homework5;
 
+import java.util.Map;
+
 public interface EmployeeService {
 
     Employee addEmployee(String firstName, String lastName, int department, double salary);
@@ -9,4 +11,5 @@ public interface EmployeeService {
     Employee findEmployee(String firstName, String lastName, int department, double salary);
 
     String printAllEmployees();
+    Map<String, Employee> getEmployees();
 }

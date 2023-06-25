@@ -1,5 +1,4 @@
 package pro.sky.java.course2.homework5;
-
 import java.util.Objects;
 
 public class Employee {

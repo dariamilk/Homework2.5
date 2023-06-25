@@ -1,12 +1,12 @@
 package pro.sky.java.course2.homework5;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.Map;
 
 @RestController
-@RequestMapping("/departments")
+@RequestMapping("/department")
     public class DepartmentController {
     private final DepartmentService departmentService;
     public DepartmentController (DepartmentService departmentService) {
@@ -20,12 +20,28 @@ import org.springframework.web.bind.annotation.RestController;
     public Employee findEmployeeWithMinSalaryPerDep (@RequestParam ("departmentId") int department) {
         return departmentService.findEmployeeWithMinSalaryPerDep(department);
     }
-    @GetMapping("/all")
-    public String printAllEmployeesPerDep (@RequestParam ("departmentId") int department) {
-        return departmentService.printAllEmployeesPerDep(department);
+
+    @GetMapping ("{id}/salary/max")
+    public double findMaxSalaryPerDep (@PathVariable int id) {
+        return departmentService.findMaxSalaryPerDep(id);
     }
-    @GetMapping("/print-all")
-    public String printAllEmployees () {
+
+    @GetMapping ("{id}/salary/min")
+    public double findMinSalaryPerDep (@PathVariable int id) {
+        return departmentService.findMinSalaryPerDep(id);
+    }
+
+    @GetMapping ("{id}/salary/sum")
+    public double findSalarySumPerDep (@PathVariable int id) {
+        return departmentService.findSalarySumPerDep(id);
+    }
+
+    @GetMapping("/{id}/employees")
+    public String printAllEmployeesPerDep (@PathVariable ("id") int id) {
+        return departmentService.printAllEmployeesPerDep(id);
+    }
+    @GetMapping("/employees")
+    public Map<Integer, List<Employee>> printAllEmployees () {
         return departmentService.printAll();
     }
 }

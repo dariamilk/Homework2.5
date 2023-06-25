@@ -43,11 +43,9 @@ public class EmployeeServiceImpl implements EmployeeService {
         return Collections.unmodifiableCollection(getEmployees().values()).toString();
     }
 
+    @Override
     public Map<String, Employee> getEmployees() {
         return employees;
     }
 
-    public void setEmployees(Map<String, Employee> employees) {
-        this.employees = employees;
-    }
 }
